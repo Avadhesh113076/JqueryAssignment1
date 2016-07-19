@@ -5,3 +5,11 @@
 .navbar{
 	height: 50px;
 }
+img{
+	width: 200px;
+	height: 250px;
+}
+tr td{
+		color: green;
+		font-family: sans-serif;
+}
