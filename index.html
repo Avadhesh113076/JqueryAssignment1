@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Omdb Api</title>
+		<meta name="description" content="">
+		<!-- Custom CSS -->
+		<link href="css/style.css" rel="stylesheet">
+		
+		<!-- Bootstrap CSS -->
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="bootstrap/css/bootstrap-glyphicons.css" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		
+	</head>
+	<body>
+		<div class="navbar navbar-inverse navbar-fixed-top" >
+	     <div class="container">
+	     	<div class="nav-collapse collapse navbar-responsive-collapse">
+	   	   	    <ul class="nav navbar-nav">
+           	  	 	<li class="active">
+           	  	 		<a href="#">Home</a>
+           	  	 	</li>
+           	  	 	<li>
+           	  	 		<a href="#">OMDB</a>
+           	  	 	</li>
+           	  	 	<li>
+           	  	 		<a href="#">Parameters</a>
+           	  	 	</li>
+           	  	</ul> <!-- end nav -->
+	     	 </div> <!-- end nav-collapse -->   
+	     </div> <!-- end of container -->
+		</div>  <!-- end of nav-bar -->
+		<div class="container">
+			<div class="well id1">
+	     		<div class="page-header">
+	     		    <h1>Search by title</h1>
+	     		</div> <!-- end page-header -->
+	     		<form class="navbar-form">
+	     		     <section class="col-sm-10">
+	     		     	 <input type="text" class="form-control" placeholder="So what are you wishing for today?"id="searchInput">
+	     		     </section>
+	     		     <section class="col-sm-2">
+	     		     	<button class="btn btn-info" type="button">Search!</button>
+	     		     </section>
+           	  	 	
+           	  	</form> <!-- end nav form -->
+	     	</div>  <!-- end of well -->
+	     	<div >
+	     		<table id="info">
+	     			<tr>
+		     			<th>Title</th>
+		     			<th>Year</th>
+						<th>imdbID</th>
+						<th>Type</th>
+						<th>Poster</th>
+	     			</tr>
+	     		</table>
+	     	</div>
+		</div> <!-- end container -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        
+           var search=$("#searchInput").val();
+			$.ajax({
+				type:"GET",
+			   url: 'http://www.omdbapi.com/?s='+search,
+			   
+			   error: function() {
+			      $('#info').html('<p>An error has occurred</p>');
+			   },
+			   
+			   success: function(data) {
+				   	   for(var i=0;i<data.Search.length;i++){
+				   	   	  var addRow = '<tr><td>'+data.Search[i].Title+'</td><td>'
+				   	   	  					 +data.Search[i].Year+'</td><td>'
+				   	   	  					 +data.Search[i].imdbID+'</td><td>'
+				   	   	  					 +data.Search[i].Type+'</td><td>'
+				   	   	  					 +'<img src="'+data.Search[i].Poster+'"alt="NA"/></td></tr>' 
+				   	   		console.log(data.Search[i].Title);
+				   	   		$('#info').append(addRow);
+				   	   }
+			      }
+			   
+			});
+    });
+});
+</script>
+	</body>
+</html>
+
